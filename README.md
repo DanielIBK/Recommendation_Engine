@@ -10,7 +10,6 @@ This project implements and recommedation for user articles.
 3. [Summary](#summary)
 
 ## Packages <a name="packages"></a>
-
     Pandas
     Numpy
     Matplotlib
