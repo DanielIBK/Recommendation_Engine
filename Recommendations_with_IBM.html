@@ -17177,41 +17177,6 @@ But in this case there are no missing values so we can use the numpy function.</
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Use these cells to see how well you can use the training </span>
-<span class="c1"># decomposition to predict on test data</span>
-
-<span class="c1"># Users and articles in user_item_train matrix</span>
-<span class="n">train_idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">user_item_train</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>
-<span class="n">train_arts</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">user_item_train</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
-
-<span class="c1"># Users and articles of test set in training set</span>
-<span class="n">test_idx_set</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">intersect1d</span><span class="p">(</span><span class="n">test_idx</span><span class="p">,</span> <span class="n">train_idx</span><span class="p">)</span>
-<span class="n">test_arts_set</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">intersect1d</span><span class="p">(</span><span class="n">test_arts</span><span class="p">,</span> <span class="n">train_arts</span><span class="p">)</span>
-
-<span class="c1"># Users and articles positions of test subset in training matrix</span>
-<span class="n">train_indexes</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">in1d</span><span class="p">(</span><span class="n">train_idx</span><span class="p">,</span> <span class="n">test_idx_set</span><span class="p">))[</span><span class="mi">0</span><span class="p">]</span>
-<span class="n">train_articles</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">in1d</span><span class="p">(</span><span class="n">train_arts</span><span class="p">,</span> <span class="n">test_arts_set</span><span class="p">))[</span><span class="mi">0</span><span class="p">]</span>
-
-<span class="c1"># Users positions of test subset in test matrix</span>
-<span class="n">test_indexes</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">in1d</span><span class="p">(</span><span class="n">test_idx</span><span class="p">,</span> <span class="n">test_idx_set</span><span class="p">))[</span><span class="mi">0</span><span class="p">]</span>
-<span class="c1"># Fit SVD on the user_item_train matrix</span>
-<span class="n">u_train</span><span class="p">,</span> <span class="n">s_train</span><span class="p">,</span> <span class="n">vt_train</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">svd</span><span class="p">(</span><span class="n">user_item_train</span><span class="p">)</span>
-<span class="c1"># FIND SUBSET OF USER_ITEM MATRIX CONTAINING ONLY USER AND ARTICLES THAT ARE SHARED BY TRAIN AND TEST SET</span>
-<span class="n">u_item_test_set</span> <span class="o">=</span> <span class="n">user_item_test</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">test_indexes</span><span class="p">,:]</span>
-<span class="n">u_item_train_set</span> <span class="o">=</span> <span class="n">user_item_train</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">train_indexes</span><span class="p">,</span> <span class="n">train_articles</span><span class="p">]</span>
-</pre></div>
-
-     </div>
-</div>
-</div>
-</div>
-
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Use these cells to see how well you can use the training </span>
 <span class="c1"># Predict on test data</span>
 <span class="n">train_idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">user_item_train</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>
 <span class="n">train_arts</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">user_item_train</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
@@ -17367,7 +17332,7 @@ But in this case there are no missing values so we can use the numpy function.</
 
 
 <div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain">
-<pre>&lt;matplotlib.legend.Legend at 0x1a6895c4280&gt;</pre>
+<pre>&lt;matplotlib.legend.Legend at 0x1a68a5a2550&gt;</pre>
 </div>
 
 </div>
